@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Be My Valentine 💖</title>
+
+  <style>
+    :root { color-scheme: light; }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, #ffd6e8, #fff5fb);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    .card{
+      width:min(680px, 92vw);
+      background: rgba(255,255,255,0.95);
+      border-radius: 26px;
+      padding: 42px 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .sparkle{
+      position:absolute; inset:-50%;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 46, 111, .10), transparent 35%),
+        radial-gradient(circle at 70% 20%, rgba(194, 24, 91, .10), transparent 40%),
+        radial-gradient(circle at 40% 75%, rgba(255, 214, 232, .35), transparent 45%);
+      filter: blur(1px);
+      pointer-events:none;
+    }
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(30px, 4vw, 48px);
+      color:#c2185b;
+      position:relative;
+    }
+    p{
+      margin: 0 auto 26px;
+      max-width: 52ch;
+      font-size: 18px;
+      line-height:1.7;
+      color:#3d3d3d;
+      position:relative;
+    }
+    .buttons{
+      position:relative;
+      height: 86px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 18px;
+      margin-top: 8px;
+      user-select:none;
+    }
+    button{
+      border:0;
+      padding: 14px 22px;
+      border-radius: 18px;
+      font-size: 18px;
+      cursor:pointer;
+      transition: transform .16s ease, box-shadow .16s ease, opacity .16s ease;
+      touch-action: manipulation;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    #yesBtn{
+      background:#ff2e6f;
+      color:white;
+      box-shadow: 0 12px 28px rgba(255,46,111,.35);
+    }
+    #yesBtn:hover{ transform: translateY(-2px) scale(1.03); }
+    #yesBtn:active{ transform: translateY(0px) scale(0.99); }
+
+    #noBtn{
+      background:#f2f2f2;
+      color:#333;
+      position:absolute;
+      right: 120px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+    }
+
+    .footer{
+      margin-top: 18px;
+      font-size: 14px;
+      color:#777;
+      font-style: italic;
+      position:relative;
+    }
+
+    /* Small hearts floating */
+    .heart{
+      position:absolute;
+      bottom:-30px;
+      font-size: 18px;
+      opacity: .0;
+      animation: floatUp 6s linear infinite;
+      pointer-events:none;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.10));
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(0) translateX(0) scale(.9); opacity: 0; }
+      10%{ opacity: .65; }
+      70%{ opacity: .55; }
+      100%{ transform: translateY(-520px) translateX(var(--drift)) scale(1.2); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="sparkle"></div>
+
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <p>
+      Out of all the people in the world… my heart keeps choosing you.
+      <br><br>
+      Will you make this Valentine’s Day a little more magical with me? 🌹
+    </p>
+
+    <div class="buttons" id="btnArea">
+      <button id="yesBtn" type="button">Yes, always ❤️</button>
+      <button id="noBtn" type="button" aria-disabled="true" tabindex="-1">No 🙈</button>
+    </div>
+
+    <div class="footer">(Some choices are simply meant to be 💘)</div>
+  </div>
+
+  <script>
+    // =========================
+    // 1) SET YOUR HUSBAND'S EMAIL
+    // =========================
+    const recipientEmail = "husband@example.com"; // <-- CHANGE THIS
+
+    // Optional: customize these
+    const subject = "My Valentine 💌";
+    const body =
+`Hi love,
+
+Yes ❤️ I would love to be your Valentine.
+
+You are my favorite person, my home, and my forever. 🌹💖
+
+Love,
+(Your Name)`;
+
+    // YES button => opens email client (Gmail/Apple Mail/Outlook depending on device)
+    document.getElementById("yesBtn").addEventListener("click", () => {
+      const mailto =
+        `mailto:${encodeURIComponent(recipientEmail)}` +
+        `?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(body)}`;
+
+      window.location.href = mailto;
+    });
+
+    // =========================
+    // 2) MAKE "NO" PRACTICALLY UNCLICKABLE
+    // =========================
+    const noBtn = document.getElementById("noBtn");
+    const area = document.getElementById("btnArea");
+
+    function moveNoButton() {
+      const areaRect = area.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = Math.max(0, areaRect.width - btnRect.width);
+      const maxY = Math.max(0, areaRect.height - btnRect.height);
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top  = `${y}px`;
+    }
+
+    // Move away when pointer gets close
+    function dodge(px, py) {
+      const r = noBtn.getBoundingClientRect();
+      const near =
+        px >= r.left - 50 && px <= r.right + 50 &&
+        py >= r.top  - 50 && py <= r.bottom + 50;
+
+      if (near) moveNoButton();
+    }
+
+    area.addEventListener("mousemove", (e) => dodge(e.clientX, e.clientY));
+    area.addEventListener("pointermove", (e) => dodge(e.clientX, e.clientY), { passive: true });
+    area.addEventListener("touchstart", (e) => {
+      const t = e.touches && e.touches[0];
+      if (t) dodge(t.clientX, t.clientY);
+    }, { passive: true });
+
+    // Block click just in case someone manages to hit it
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      moveNoButton();
+    });
+
+    // Start randomly placed
+    moveNoButton();
+
+    // =========================
+    // 3) FLOATING HEARTS
+    // =========================
+    const card = document.querySelector(".card");
+    const hearts = ["💖","💕","💘","❤️","🌹"];
+
+    function spawnHeart() {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+      const left = Math.random() * 100;
+      const drift = (Math.random() * 120 - 60).toFixed(0) + "px";
+      const delay = (Math.random() * 2).toFixed(2) + "s";
+      const size = (14 + Math.random() * 14).toFixed(0) + "px";
+
+      h.style.left = left + "%";
+      h.style.setProperty("--drift", drift);
+      h.style.animationDelay = delay;
+      h.style.fontSize = size;
+
+      card.appendChild(h);
+
+      // Cleanup after animation
+      setTimeout(() => h.remove(), 7000);
+    }
+
+    // gentle frequency
+    setInterval(spawnHeart, 700);
+  </script>
+</body>
+</html>
