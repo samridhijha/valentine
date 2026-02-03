@@ -6,135 +6,109 @@
   <title>Be My Valentine 💖</title>
 
   <style>
-    :root { color-scheme: light; }
-
-    body{
-      margin:0;
-      min-height:100vh;
-      display:grid;
-      place-items:center;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
       background: linear-gradient(135deg, #ffd6e8, #fff5fb);
       font-family: Georgia, "Times New Roman", serif;
     }
 
-    .card{
-      width:min(720px, 92vw);
-      background: rgba(255,255,255,0.95);
+    .card {
+      width: min(720px, 92vw);
+      background: rgba(255, 255, 255, 0.96);
       border-radius: 26px;
-      padding: 44px 34px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.15);
-      text-align:center;
-      position:relative;
-      overflow:hidden;
+      padding: 45px 35px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .sparkle{
-      position:absolute; inset:-55%;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255, 46, 111, .10), transparent 35%),
-        radial-gradient(circle at 70% 20%, rgba(194, 24, 91, .10), transparent 40%),
-        radial-gradient(circle at 40% 75%, rgba(255, 214, 232, .35), transparent 45%);
-      filter: blur(1px);
-      pointer-events:none;
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(32px, 4vw, 52px);
+      color: #c2185b;
     }
 
-    h1{
-      margin: 0 0 12px;
-      font-size: clamp(30px, 4vw, 50px);
-      color:#c2185b;
-      position:relative;
-      letter-spacing: .2px;
-    }
-
-    p{
-      margin: 0 auto 24px;
-      max-width: 56ch;
+    p {
       font-size: 18px;
-      line-height:1.75;
-      color:#3d3d3d;
-      position:relative;
+      line-height: 1.75;
+      color: #444;
+      max-width: 55ch;
+      margin: 0 auto 28px;
     }
 
-    .buttons{
-      position:relative;
-      height: 92px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    .buttons {
+      position: relative;
+      height: 95px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       gap: 18px;
-      margin-top: 10px;
-      user-select:none;
+      user-select: none;
     }
 
-    button{
-      border:0;
+    button {
+      border: none;
       padding: 14px 22px;
       border-radius: 18px;
       font-size: 18px;
-      cursor:pointer;
-      transition: transform .16s ease, box-shadow .16s ease, opacity .16s ease;
-      touch-action: manipulation;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      cursor: pointer;
+      font-family: system-ui, sans-serif;
+      transition: transform 0.2s ease;
     }
 
-    #yesBtn{
-      background:#ff2e6f;
-      color:white;
-      box-shadow: 0 12px 28px rgba(255,46,111,.35);
+    #yesBtn {
+      background: #ff2e6f;
+      color: white;
+      box-shadow: 0 12px 28px rgba(255, 46, 111, 0.35);
     }
-    #yesBtn:hover{ transform: translateY(-2px) scale(1.03); }
-    #yesBtn:active{ transform: translateY(0px) scale(0.99); }
 
-    #noBtn{
-      background:#f2f2f2;
-      color:#333;
-      position:absolute;
-      left: 62%;
-      top: 10px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+    #yesBtn:hover {
+      transform: scale(1.07);
+    }
 
-      /* ✅ Smooth/slow movement */
-      transition: left 0.45s ease, top 0.45s ease;
+    #noBtn {
+      background: #f2f2f2;
+      color: #333;
+      position: absolute;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+
+      /* ✅ Smooth glide */
+      transition: left 0.55s ease, top 0.55s ease;
       will-change: left, top;
     }
 
-    .footer{
+    .footer {
       margin-top: 18px;
       font-size: 14px;
-      color:#777;
+      color: #777;
       font-style: italic;
-      position:relative;
     }
 
     /* Floating hearts */
-    .heart{
-      position:absolute;
-      bottom:-30px;
+    .heart {
+      position: absolute;
+      bottom: -30px;
       opacity: 0;
       animation: floatUp 6s linear infinite;
-      pointer-events:none;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,.10));
-    }
-    @keyframes floatUp{
-      0%{ transform: translateY(0) translateX(0) scale(.9); opacity: 0; }
-      10%{ opacity: .65; }
-      70%{ opacity: .55; }
-      100%{ transform: translateY(-560px) translateX(var(--drift)) scale(1.2); opacity: 0; }
+      pointer-events: none;
     }
 
-    /* Small screens: keep buttons comfortable */
-    @media (max-width: 420px){
-      button{ font-size: 16px; padding: 12px 16px; border-radius: 16px; }
-      .buttons{ height: 100px; }
-      #noBtn{ left: 58%; }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(0.8); opacity: 0; }
+      10%  { opacity: 0.7; }
+      70%  { opacity: 0.5; }
+      100% { transform: translateY(-560px) scale(1.2); opacity: 0; }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <div class="sparkle"></div>
 
+  <div class="card">
     <h1>Will you be my Valentine? 💖</h1>
 
     <p>
@@ -144,18 +118,21 @@
     </p>
 
     <div class="buttons" id="btnArea">
-      <button id="yesBtn" type="button">Yes, always ❤️</button>
-      <button id="noBtn" type="button" aria-disabled="true" tabindex="-1">No 🙈</button>
+      <button id="yesBtn">Yes, always ❤️</button>
+      <button id="noBtn" tabindex="-1">No 🙈</button>
     </div>
 
-    <div class="footer">(Some choices are simply meant to be 💘)</div>
+    <div class="footer">
+      (Some choices are simply meant to be 💘)
+    </div>
   </div>
 
   <script>
     // ============================================
-    // CONFIG — CHANGE THIS TO YOUR HUSBAND'S EMAIL
+    // CONFIG: Put your husband's email here
     // ============================================
-    const RECIPIENT_EMAIL = "samridhijha@gmail.com"; // <-- change this
+    const RECIPIENT_EMAIL = "husband@example.com"; // <-- CHANGE THIS
+
     const EMAIL_SUBJECT = "My Valentine 💌";
     const EMAIL_BODY =
 `Hi love,
@@ -165,148 +142,95 @@ Yes ❤️ I would love to be your Valentine.
 You are my favorite person, my home, and my forever. 🌹💖
 
 Love,
-(Your Name)`;
+Your Wife`;
 
     // ============================================
-    // YES BUTTON: open email client
+    // YES BUTTON → Opens Email
     // ============================================
-    const yesBtn = document.getElementById("yesBtn");
-    yesBtn.addEventListener("click", () => {
+    document.getElementById("yesBtn").addEventListener("click", () => {
       const mailto =
         `mailto:${encodeURIComponent(RECIPIENT_EMAIL)}` +
         `?subject=${encodeURIComponent(EMAIL_SUBJECT)}` +
         `&body=${encodeURIComponent(EMAIL_BODY)}`;
+
       window.location.href = mailto;
     });
 
     // ============================================
-    // NO BUTTON: slow + smooth + hard to click
+    // NO BUTTON → Always stays far from cursor 😄
     // ============================================
     const noBtn = document.getElementById("noBtn");
     const area = document.getElementById("btnArea");
 
-    // Prevent rapid teleporting
-    let moving = false;
+    // Start position
+    noBtn.style.left = "60%";
+    noBtn.style.top = "10px";
 
-    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
-    function moveNoButton(){
+    function moveFarFromCursor(px, py) {
       const areaRect = area.getBoundingClientRect();
-      const btnRect  = noBtn.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
 
-      const maxX = Math.max(0, areaRect.width - btnRect.width);
-      const maxY = Math.max(0, areaRect.height - btnRect.height);
+      const maxX = areaRect.width - btnRect.width;
+      const maxY = areaRect.height - btnRect.height;
 
-      // Keep within container bounds
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+      // Cursor relative position
+      const relX = px - areaRect.left;
+      const relY = py - areaRect.top;
 
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top  = `${y}px`;
+      // Opposite corner logic
+      let newX = relX < areaRect.width / 2 ? maxX : 0;
+      let newY = relY < areaRect.height / 2 ? maxY : 0;
+
+      // Add playful randomness
+      newX += (Math.random() * 90 - 45);
+      newY += (Math.random() * 60 - 30);
+
+      // Clamp inside bounds
+      newX = Math.max(0, Math.min(maxX, newX));
+      newY = Math.max(0, Math.min(maxY, newY));
+
+      noBtn.style.left = `${newX}px`;
+      noBtn.style.top = `${newY}px`;
     }
 
-    function dodge(px, py){
-      if (moving) return;
+    // Always move away from mouse
+    area.addEventListener("mousemove", (e) => {
+      moveFarFromCursor(e.clientX, e.clientY);
+    });
 
-      const r = noBtn.getBoundingClientRect();
-
-      // Larger "fear radius" so it's evasive but not frantic
-      const near =
-        px >= r.left - 70 && px <= r.right + 70 &&
-        py >= r.top  - 70 && py <= r.bottom + 70;
-
-      if (near){
-        moving = true;
-
-        // ✅ small delay so it feels slower/teasing
-        setTimeout(() => {
-          moveNoButton();
-          moving = false;
-        }, 250);
-      }
-    }
-
-    // Mouse/pointer tracking within the area
-    area.addEventListener("mousemove", (e) => dodge(e.clientX, e.clientY));
-    area.addEventListener("pointermove", (e) => dodge(e.clientX, e.clientY), { passive: true });
-
-    // Touch devices: react on touch start near it
+    // Touch devices
     area.addEventListener("touchstart", (e) => {
-      const t = e.touches && e.touches[0];
-      if (t) dodge(t.clientX, t.clientY);
-    }, { passive: true });
+      const t = e.touches[0];
+      moveFarFromCursor(t.clientX, t.clientY);
+    });
 
-    // If someone manages to click it, block it and move (no alert, keeps it romantic)
+    // Block clicking completely
     noBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      if (!moving){
-        moving = true;
-        setTimeout(() => {
-          moveNoButton();
-          moving = false;
-        }, 200);
-      }
     });
 
-    // Start somewhere nice (not too close to Yes)
-    function initialPlacement(){
-      const areaRect = area.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-      const maxX = Math.max(0, areaRect.width - btnRect.width);
-      const maxY = Math.max(0, areaRect.height - btnRect.height);
-
-      const x = clamp(maxX * 0.65, 0, maxX);
-      const y = clamp(maxY * 0.10, 0, maxY);
-
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top  = `${y}px`;
-    }
-    initialPlacement();
-
     // ============================================
-    // FLOATING HEARTS (romantic)
+    // Floating Hearts Animation 💖
     // ============================================
     const card = document.querySelector(".card");
-    const hearts = ["💖","💕","💘","❤️","🌹","💞"];
+    const hearts = ["💖", "💕", "💘", "❤️", "🌹"];
 
-    function spawnHeart(){
+    function spawnHeart() {
       const h = document.createElement("div");
       h.className = "heart";
       h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
 
-      const left = Math.random() * 100;
-      const drift = (Math.random() * 140 - 70).toFixed(0) + "px";
-      const delay = (Math.random() * 1.8).toFixed(2) + "s";
-      const size = (14 + Math.random() * 16).toFixed(0) + "px";
-
-      h.style.left = left + "%";
-      h.style.setProperty("--drift", drift);
-      h.style.animationDelay = delay;
-      h.style.fontSize = size;
+      h.style.left = Math.random() * 100 + "%";
+      h.style.fontSize = (14 + Math.random() * 18) + "px";
 
       card.appendChild(h);
-      setTimeout(() => h.remove(), 7000);
+
+      setTimeout(() => h.remove(), 6500);
     }
 
     setInterval(spawnHeart, 750);
-
-    // Re-position No button if window resizes (keeps it in bounds)
-    window.addEventListener("resize", () => {
-      // keep it within bounds after resize
-      const areaRect = area.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
-
-      const maxX = Math.max(0, areaRect.width - btnRect.width);
-      const maxY = Math.max(0, areaRect.height - btnRect.height);
-
-      // Read current left/top, clamp them
-      const currentLeft = parseFloat(noBtn.style.left || "0");
-      const currentTop  = parseFloat(noBtn.style.top  || "0");
-
-      noBtn.style.left = `${clamp(currentLeft, 0, maxX)}px`;
-      noBtn.style.top  = `${clamp(currentTop, 0, maxY)}px`;
-    });
   </script>
+
 </body>
 </html>
